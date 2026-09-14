@@ -259,10 +259,9 @@ jobs:
         run: |
           # Add configuration
           for config in $(cat ${{ env.ADD_DEFCONFIG }})
-          do
-            echo $i >> ${{ env.DEFCONFIG }}
-          done
-
+           do
+           echo $config >> ${{ env.DEFCONFIG }}  # Variabel benar
+           done
           # Apply patch
           if [ -f kernel/cgroup.c ]; then
             row=$(sed -n -e '/^static int cgroup_add_file/=' kernel/cgroup.c)
@@ -306,8 +305,8 @@ jobs:
           # tree ${{ env.OUT_DIR }}
 
       - name: 💛 Upload Image
-        uses: 
-        env: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
+        env:
           ARCH: ${{ steps.generate-args.outputs.ARCH }}
         with:
           name: ${{ env.KERNEL_NAME }}-${{ env.BUILD_DATE }}-Image
