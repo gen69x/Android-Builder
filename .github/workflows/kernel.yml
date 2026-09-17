@@ -158,12 +158,12 @@ jobs:
         id: generate-args
         env:
           PARAMS: "${{ toJSON(matrix.CONFIG.params) }}"
-          THREAD: $(nproc --all)
         run: |
-          echo "🤔 PATH Variable: $PATH"
+         echo "🤔 PATH Variable: $PATH"
 
-          ARCH=$(echo "$PARAMS" | jq -r ".ARCH")
-          CC=$(echo "$PARAMS" | jq -r ".CC")
+         ARCH=$(echo "$PARAMS" | jq -r ".ARCH")
+         CC=$(echo "$PARAMS" | jq -r ".CC")
+         THREAD=$(nproc --all)
 
           args="-j${THREAD} O=${OUT_DIR} ARCH=$ARCH"
           if [ -n "$CC" ]; then
