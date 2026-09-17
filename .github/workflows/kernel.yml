@@ -254,7 +254,7 @@ jobs:
             echo "🎖️ Apply xt_qtaguid.patch"
           fi
 
-            - name: 👍 Start building the kernel
+      - name: 👍 Start building the kernel
         working-directory: ${{ env.KERNEL_NAME }}
         env:
           ARGS: ${{ steps.generate-args.outputs.ARGS }}
