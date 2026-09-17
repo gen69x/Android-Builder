@@ -2,8 +2,8 @@
   {
     "kernelSource": {
       "name": "Redmi7（proton）",
-      "repo": "https://github.com/PapiLer/Project-KARA",
-      "branch": "Kara-KSU",
+      "repo": "https://github.com/gen69x/Project-KARA",
+      "branch": "EOL",
       "device": "onclite",
       "defconfig": "onclite-perf_defconfig"
     },
@@ -30,7 +30,7 @@
       "use": true,
       "release": true,
       "custom": {
-        "repo": "https://github.com/PapiLer/AnyKernel3",
+        "repo": "https://github.com/gen69x/AnyKernel3",
         "branch": "master"
       }
     },
