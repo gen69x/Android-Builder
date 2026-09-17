@@ -292,17 +292,29 @@ jobs:
             echo "🎖️ Apply xt_qtaguid.patch"
           fi
 
-      - name: 👍 Start building the kernel
+        - name: 👍 Start building the kernel
         working-directory: ${{ env.KERNEL_NAME }}
         env:
           ARGS: ${{ steps.generate-args.outputs.ARGS }}
+          HOSTCC: /usr/bin/gcc
+          HOSTCXX: /usr/bin/g++
+          HOSTLD: /usr/bin/ld.bfd
         run: |
-          echo "🤔 PATH Variable: $PATH"
+          echo "PATH Variable: $PATH"
+
           export KBUILD_BUILD_HOST=Github-Action
-          export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
-          make ${{ env.ARGS }} ${{ env.KERNEL_DEFCONFIG_PATH }}
-          make ${{ env.ARGS }}
-          # tree ${{ env.OUT_DIR }}
+          export KBUILD_BUILD_USER="$(echo '${{ github.actor }}' | tr '[:upper:]' '[:lower:]')"
+
+          make $ARGS \
+            HOSTCC="$HOSTCC" \
+            HOSTCXX="$HOSTCXX" \
+            HOSTLD="$HOSTLD" \
+            ${{ env.KERNEL_DEFCONFIG_PATH }}
+
+          make $ARGS \
+            HOSTCC="$HOSTCC" \
+            HOSTCXX="$HOSTCXX" \
+            HOSTLD="$HOSTLD"
 
       - name: 💛 Upload Image
         uses: actions/upload-artifact@v4
